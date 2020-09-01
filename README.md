@@ -5,5 +5,5 @@ docker search ubuntu-18.04
 docker pull dokken/ubuntu-18.04
 
 ## Команды сборки и запуска Docker-образа в интерактивном режиме
-docker build -t mrog:latest .
+docker build -t mrog:latest . /t
 docker run -it mrog bash
