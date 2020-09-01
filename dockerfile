@@ -8,3 +8,5 @@ vim Dockerfile
 FROM ubuntu:18.04
 #Обновить программный репозиторий Ubuntu
 RUN apt-get update
+
+RUN apt-get -y install apache2
