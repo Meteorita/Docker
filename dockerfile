@@ -1,7 +1,8 @@
 # Use ubuntu-18 as parent image
 FROM dokken/ubuntu-18.04
+# Install requried libraries
 RUN apt-get update && apt-get install -y build-essential libncurses5-dev zlib1g-dev libbz2-dev
-RUN apt-get install -y liblzma-dev
+RUN apt-get install -y liblzma-dev libcurl
 # Make dir for softwares
 RUN mkdir /SOFT
 # Set working directory
