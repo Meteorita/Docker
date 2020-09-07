@@ -6,7 +6,7 @@ RUN apt-get install -y liblzma-dev
 RUN mkdir /SOFT
 # Set working directory
 WORKDIR /SOFT
-# Load samtools tarball of last release
+# Load samtools-1.10 tarball of last release
 RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
 # Uncompress
 RUN tar xjvf samtools-1.10.tar.bz2
