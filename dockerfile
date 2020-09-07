@@ -42,6 +42,22 @@ RUN ./configure --with-internal-glib
 RUN make
 RUN make install
 WORKDIR /SOFT
+# Download hstlib-1.10.2 
+RUN wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2
+#Uncompress hstlib
+RUN tar xvzf htslib-1.10.2.tar.bz2
+# Move the source files to new folder
+RUN mv htslib-1.10.2 htslib-1.10.2-src
+# Make dir for hstlib
+RUN mkdir htslib-1.10.2 
+# Install hstlib 
+WORKDIR htslib-1.10.2-src
+RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --with-libdeflate
+RUN make
+RUN make install
+WORKDIR /SOFT
+# Update PATH
+ENV PATH "$PATH:/SOFT/hstlib-1.10.2/bin"
 # Load biobambam2 last release
 RUN wget https://github.com/gt1/biobambam2/archive/2.0.89-release-20180518145034.tar.gz
 # Uncompress
@@ -58,3 +74,4 @@ RUN rm samtools-1.10.tar.bz2
 RUN rm 2.0.499-release-20180606122508.tar.gz
 RUN rm pkg-config-0.29.2.tar.gz
 RUN rm 2.0.89-release-20180518145034.tar.gz
+RUN rm htslib-1.10.2.tar.bz2
