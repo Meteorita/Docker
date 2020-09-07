@@ -52,7 +52,7 @@ RUN mv htslib-1.10.2 htslib-1.10.2-src
 RUN mkdir htslib-1.10.2 
 # Install hstlib 
 WORKDIR htslib-1.10.2-src
-RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --with-libdeflate
+RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --enable-plugins --with-libdeflate
 RUN make
 RUN make install
 WORKDIR /SOFT
