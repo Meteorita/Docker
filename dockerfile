@@ -2,7 +2,7 @@
 FROM dokken/ubuntu-18.04
 # Install requried libraries
 RUN apt-get update && apt-get install -y build-essential libncurses5-dev zlib1g-dev libbz2-dev
-RUN apt-get install -y liblzma-dev libcurl
+RUN apt-get install -y liblzma-dev 
 # Make dir for softwares
 RUN mkdir /SOFT
 # Set working directory
@@ -52,7 +52,7 @@ RUN mv htslib-1.10.2 htslib-1.10.2-src
 RUN mkdir htslib-1.10.2 
 # Install hstlib 
 WORKDIR htslib-1.10.2-src
-RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --enable-plugins --with-libdeflate
+RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --enable-plugins 
 RUN make
 RUN make install
 WORKDIR /SOFT
