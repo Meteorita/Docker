@@ -45,7 +45,7 @@ WORKDIR /SOFT
 # Download hstlib-1.10.2 
 RUN wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2
 #Uncompress hstlib
-RUN tar xvzf htslib-1.10.2.tar.bz2
+RUN tar xjvf htslib-1.10.2.tar.bz2
 # Move the source files to new folder
 RUN mv htslib-1.10.2 htslib-1.10.2-src
 # Make dir for hstlib
