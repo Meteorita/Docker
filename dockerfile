@@ -4,9 +4,12 @@ FROM dokken/ubuntu-18.04
 RUN apt-get update && apt-get install -y build-essential libncurses5-dev zlib1g-dev libbz2-dev
 RUN apt-get install -y liblzma-dev 
 # Make dir for softwares
-RUN mkdir /SOFT
+RUN mkdir /soft
+# Create environment
+ARG SOFT_ENV=/soft
+ENV SOFT_ENV="${SOFT_ENV}"
 # Set working directory
-WORKDIR /SOFT
+WORKDIR /soft
 # Load samtools-1.10 tarball of last release
 RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
 # Uncompress and clean
@@ -18,12 +21,12 @@ RUN mv samtools-1.10 samtools-1.10-src
 RUN mkdir samtools-1.10
 # Install samtools 
 WORKDIR samtools-1.10-src
-RUN ./configure --prefix=/SOFT/samtools-1.10
+RUN ./configure --prefix=/soft/samtools-1.10
 RUN make
 RUN make install
-WORKDIR /SOFT
+WORKDIR /soft
 # Update PATH
-ENV PATH "$PATH:/SOFT/samtools-1.10/bin"
+ENV PATH "$PATH:/soft/samtools-1.10/bin"
 # Install git
 RUN apt-get install -y git
 # Load, install and clean last release of libmaus2
@@ -32,10 +35,10 @@ RUN tar xvzf 2.0.499-release-20180606122508.tar.gz
 RUN rm 2.0.499-release-20180606122508.tar.gz
 RUN mkdir libmaus2-2.0.499
 WORKDIR libmaus2-2.0.499-release-20180606122508
-RUN ./configure --prefix=/SOFT/libmaus2-2.0.499
+RUN ./configure --prefix=/soft/libmaus2-2.0.499
 RUN make
 RUN make install
-WORKDIR /SOFT
+WORKDIR /soft
 # Install pkg-config
 RUN wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 RUN tar xvzf pkg-config-0.29.2.tar.gz
@@ -43,7 +46,7 @@ WORKDIR pkg-config-0.29.2
 RUN ./configure --with-internal-glib
 RUN make
 RUN make install
-WORKDIR /SOFT
+WORKDIR /soft
 # Download hstlib-1.10.2 
 RUN wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2
 #Uncompress hstlib
@@ -54,14 +57,14 @@ RUN mv htslib-1.10.2 htslib-1.10.2-src
 RUN mkdir htslib-1.10.2 
 # Install hstlib 
 WORKDIR htslib-1.10.2-src
-RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --enable-plugins 
+RUN ./configure --prefix=/soft/hstlib-1.10.2 --enable-plugins 
 RUN make
 RUN make install
 # Clean zip file
 RUN rm htslib-1.10.2.tar.bz2
-WORKDIR /SOFT
+WORKDIR /soft
 # Update PATH
-ENV PATH "$PATH:/SOFT/hstlib-1.10.2/bin"
+ENV PATH "$PATH:/soft/hstlib-1.10.2/bin"
 # Load biobambam2 last release
 RUN wget https://github.com/gt1/biobambam2/archive/2.0.89-release-20180518145034.tar.gz
 # Uncompress and clean
@@ -70,9 +73,9 @@ RUN rm 2.0.89-release-20180518145034.tar.gz
 # Install 
 RUN mkdir biobambam2-2.0.89
 WORKDIR biobambam2-2.0.89-release-20180518145034
-RUN ./configure --with-libmaus2=/SOFT/libmaus2-2.0.499 --prefix=/SOFT/biobambam2-2.0.89
+RUN ./configure --with-libmaus2=/soft/libmaus2-2.0.499 --prefix=/soft/biobambam2-2.0.89
 RUN make
 RUN make install
 RUN rm pkg-config-0.29.2.tar.gz
-WORKDIR /SOFT
+WORKDIR /soft
 
