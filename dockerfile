@@ -27,6 +27,7 @@ RUN make install
 WORKDIR /soft
 # Update PATH
 ENV PATH "$PATH:/soft/samtools-1.10/bin"
+ENV SAMTOOLS "$PATH:/soft/samtools-1.10/bin/samtools"
 # Install git
 RUN apt-get install -y git
 # Load, install and clean last release of libmaus2
