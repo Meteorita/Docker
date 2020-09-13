@@ -9,8 +9,9 @@ RUN mkdir /SOFT
 WORKDIR /SOFT
 # Load samtools-1.10 tarball of last release
 RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
-# Uncompress
+# Uncompress and clean
 RUN tar xjvf samtools-1.10.tar.bz2
+RUN rm samtools-1.10.tar.bz2
 # Move the source files to new folder
 RUN mv samtools-1.10 samtools-1.10-src
 # Make dir where samtools will be installed
@@ -25,9 +26,10 @@ WORKDIR /SOFT
 ENV PATH "$PATH:/SOFT/samtools-1.10/bin"
 # Install git
 RUN apt-get install -y git
-# Load and install last release of libmaus2
+# Load, install and clean last release of libmaus2
 RUN wget https://github.com/gt1/libmaus2/archive/2.0.499-release-20180606122508.tar.gz
 RUN tar xvzf 2.0.499-release-20180606122508.tar.gz
+RUN rm 2.0.499-release-20180606122508.tar.gz
 RUN mkdir libmaus2-2.0.499
 WORKDIR libmaus2-2.0.499-release-20180606122508
 RUN ./configure --prefix=/SOFT/libmaus2-2.0.499
@@ -55,23 +57,22 @@ WORKDIR htslib-1.10.2-src
 RUN ./configure --prefix=/SOFT/hstlib-1.10.2 --enable-plugins 
 RUN make
 RUN make install
+# Clean zip file
+RUN rm htslib-1.10.2.tar.bz2
 WORKDIR /SOFT
 # Update PATH
 ENV PATH "$PATH:/SOFT/hstlib-1.10.2/bin"
 # Load biobambam2 last release
 RUN wget https://github.com/gt1/biobambam2/archive/2.0.89-release-20180518145034.tar.gz
-# Uncompress
+# Uncompress and clean
 RUN tar xvzf 2.0.89-release-20180518145034.tar.gz
+RUN rm 2.0.89-release-20180518145034.tar.gz
 # Install 
 RUN mkdir biobambam2-2.0.89
 WORKDIR biobambam2-2.0.89-release-20180518145034
 RUN ./configure --with-libmaus2=/SOFT/libmaus2-2.0.499 --prefix=/SOFT/biobambam2-2.0.89
 RUN make
 RUN make install
-WORKDIR /SOFT
-# Clean
-RUN rm samtools-1.10.tar.bz2
-RUN rm 2.0.499-release-20180606122508.tar.gz
 RUN rm pkg-config-0.29.2.tar.gz
-RUN rm 2.0.89-release-20180518145034.tar.gz
-RUN rm htslib-1.10.2.tar.bz2
+WORKDIR /SOFT
+
