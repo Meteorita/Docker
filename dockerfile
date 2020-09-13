@@ -6,7 +6,6 @@ RUN apt-get install -y liblzma-dev
 # Make dir for softwares
 RUN mkdir /soft
 # Create environment
-ARG SOFT_ENV=/soft
 ENV SOFT_ENV="${SOFT_ENV}"
 # Set working directory
 WORKDIR /soft
